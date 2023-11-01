@@ -1,11 +1,12 @@
 import { CartIcon, ClearCartIcon } from "./Icons"
 import "./Cart.css"
 import { useId } from "react"
-import { CartContext } from "../context/cart"
-import { useContext } from "react"
+import { useCart } from "../hooks/useCart"
+
 function Cart() {
   const cartCheckBoxId = useId()
-  const { clearCart, addToCart, cart } = useContext(CartContext)
+
+  const { addToCart, cart, clearCart } = useCart()
 
   return (
     <>
@@ -16,16 +17,15 @@ function Cart() {
       <aside className="cart">
         <ul>
           {cart.map((item) => (
-            <li key={item.prod.id}>
-              <img src={item.prod.thumbnail} alt={item.prod.title} />
+            <li key={item.id}>
+              <img src={item.thumbnail} alt={item.title} />
 
               <div>
-                <strong>{item.prod.title}</strong> -{" "}
-                <small>$ {item.prod.price}</small>
+                <strong>{item.title}</strong> - <small>$ {item.price}</small>
               </div>
               <footer>
                 <small>Qty: {item.quantity}</small>
-                <button onClick={() => addToCart(item.prod)}>+</button>
+                <button onClick={() => addToCart(item)}> + </button>
               </footer>
             </li>
           ))}

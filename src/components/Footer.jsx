@@ -1,14 +1,14 @@
-import { useFilters } from "../hooks/useFilters"
 import "./Footer.css"
+import { useFilters } from "../hooks/useFilters.js"
+// import { useCart } from "../hooks/useCart.js"
 
 function Footer() {
+  // const { cart } = useCart()
   const { filters } = useFilters()
   return (
     <footer className="footer">
-      {/* <h4>
-        Prueba técnica de React ⚛️ － <span>context-redux</span>
-      </h4> */}
-      <p>{JSON.stringify(filters, null, 2)}</p>
+      <h6>{JSON.stringify(filters, null, 2)}</h6>
+      {/* <h6>{JSON.stringify(cart, null, 2)}</h6> */}
     </footer>
   )
 }

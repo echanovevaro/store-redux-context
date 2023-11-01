@@ -4,30 +4,35 @@ export const CartContext = createContext()
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([])
-  console.log(cart)
 
   const addToCart = (newProd) => {
-    const existentItem = cart.find((item) => item.prod.id === newProd.id)
-    console.log(existentItem)
+    const existentItem = cart?.find((item) => item.id === newProd.id)
+
     if (existentItem) {
       setCart((prev) =>
         prev.map((item) =>
-          item.prod.id === newProd.id
+          item.id === newProd.id
             ? { ...item, quantity: item.quantity + 1 }
             : item
         )
       )
     } else {
-      setCart((prev) => [...prev, { prod: newProd, quantity: 1 }])
+      //if the product is not in the cart, add it
+      setCart((prev) => [...prev, { ...newProd, quantity: 1 }])
     }
   }
 
   const clearCart = () => {
     setCart([])
   }
+  const removeItemFormCard = (product) => {
+    setCart((prev) => prev.filter((item) => item.id !== product.id))
+  }
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, clearCart }}>
+    <CartContext.Provider
+      value={{ cart, addToCart, clearCart, removeItemFormCard }}
+    >
       {children}
     </CartContext.Provider>
   )
