@@ -1,5 +1,5 @@
-import { useState } from "react"
 import { createContext } from "react"
+import { useLocalStorage } from "../hooks/useLocalStorage"
 
 const initialState = {
   category: "all",
@@ -14,7 +14,7 @@ export const FilterContext = createContext()
 //El que nos permite modificar los datos del contexto
 
 export const FiltersProvider = ({ children }) => {
-  const [filters, setFilters] = useState(initialState)
+  const [filters, setFilters] = useLocalStorage("filters", initialState)
 
   return (
     <FilterContext.Provider

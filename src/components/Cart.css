@@ -1,24 +1,27 @@
 .cart {
   background: #000;
   display: none;
-  padding: 32px;
+  padding: 2rem;
   position: fixed;
   right: 0px;
   top: 0px;
   width: 200px;
   z-index: 998;
-  overflow-y: visible;
-  padding-bottom: 1rem;
+  overflow-y: auto;
+  height: 100%;
 }
 
 .cart img {
+  border-radius: 3px;
   aspect-ratio: 16/9;
+  padding-top: 15px;
   width: 100%;
+  object-fit: cover;
 }
 
 .cart li {
   border-bottom: 1px solid #444;
-  padding-bottom: 16px;
+  padding-bottom: 10px;
 }
 
 .cart footer {
@@ -44,7 +47,7 @@
   justify-content: center;
   padding: 4px;
   position: absolute;
-  right: 8px;
+  right: 25px;
   top: 8px;
   transition: all 0.3s ease;
   width: 32px;
@@ -57,5 +60,36 @@
 
 .cart-button ~ input:checked ~ .cart {
   height: 100%;
-  display: block;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  align-content: stretch;
+}
+
+.btn-clear {
+  align-items: center;
+  background: rgb(255, 94, 0);
+
+  cursor: pointer;
+  display: flex;
+  height: 36px;
+  justify-content: center;
+  padding: 4px;
+  position: absolute;
+  margin: 0.7rem;
+
+  transition: all 0.3s ease;
+  width: 36px;
+  z-index: 9999;
+}
+
+.btn-clear:hover {
+  scale: 1.1;
+}
+
+.texts {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
