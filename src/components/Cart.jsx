@@ -1,12 +1,14 @@
 import { CartIcon, ClearCartIcon } from "./Icons"
 import "./Cart.css"
 import { useId } from "react"
-import { useCart } from "../hooks/useCart"
-
+// import { useCart } from "../hooks/useCart"
+import { useDispatch, useSelector } from "react-redux"
+import { cartActions } from "../store/cart-slice"
 function Cart() {
   const cartCheckBoxId = useId()
+  const dispatch = useDispatch()
 
-  const { addToCart, cart, clearCart } = useCart()
+  const { cart } = useSelector((state) => state.cart)
   const totalQty = cart.reduce((acc, item) => acc + item.quantity, 0)
   const totalPrice = cart.reduce((acc, item) => acc + item.price * totalQty, 0)
 
@@ -36,14 +38,19 @@ function Cart() {
               </div>
               <footer>
                 <small>Qty: {item.quantity}</small>
-                <button onClick={() => addToCart(item)}> + </button>
+                <button
+                  onClick={() => dispatch(cartActions.addProductToCart(item))}
+                >
+                  {" "}
+                  +{" "}
+                </button>
               </footer>
             </li>
           ))}
         </ul>
-        <button onClick={clearCart} className="btn-clear">
+        {/* <button onClick={clearCart} className="btn-clear">
           <ClearCartIcon />
-        </button>
+        </button> */}
       </aside>
     </>
   )

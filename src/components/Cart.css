@@ -33,7 +33,7 @@
 }
 
 .cart footer button {
-  padding: 0.1rem 0.5rem;
+  padding: 0.3rem 0.7rem;
   font-weight: lighter;
 }
 
@@ -68,7 +68,6 @@
 .btn-clear {
   align-items: center;
   background: rgb(255, 94, 0);
-
   cursor: pointer;
   display: flex;
   height: 36px;
