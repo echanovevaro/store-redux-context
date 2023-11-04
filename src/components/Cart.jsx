@@ -4,11 +4,12 @@ import { useId } from "react"
 // import { useCart } from "../hooks/useCart"
 import { useDispatch, useSelector } from "react-redux"
 import { cartActions } from "../store/cart-slice"
+
 function Cart() {
+  const { cart } = useSelector((state) => state.cart)
   const cartCheckBoxId = useId()
   const dispatch = useDispatch()
 
-  const { cart } = useSelector((state) => state.cart)
   const totalQty = cart.reduce((acc, item) => acc + item.quantity, 0)
   const totalPrice = cart.reduce((acc, item) => acc + item.price * totalQty, 0)
 
@@ -48,9 +49,12 @@ function Cart() {
             </li>
           ))}
         </ul>
-        {/* <button onClick={clearCart} className="btn-clear">
+        <button
+          onClick={() => dispatch(cartActions.clearCart())}
+          className="btn-clear"
+        >
           <ClearCartIcon />
-        </button> */}
+        </button>
       </aside>
     </>
   )

@@ -12,31 +12,50 @@ const cartSlice = createSlice({
       const existedProduct = state.cart.find(
         (product) => product.id === newProduct.id
       )
-      state.totalQuantity += 1
-
       if (!existedProduct) {
-        state.cart.push({
-          title: newProduct.title,
-          price: newProduct.price,
-          thumbnail: newProduct.thumbnail,
-          quantity: 1,
-        })
+        return {
+          ...state,
+          cart: [
+            ...state.cart,
+            {
+              id: newProduct.id,
+              title: newProduct.title,
+              price: newProduct.price,
+              thumbnail: newProduct.thumbnail,
+              quantity: 1,
+            },
+          ],
+          totalQuantity: state.totalQuantity + 1,
+        }
       } else {
-        existedProduct.quantity++
+        existedProduct.quantity += 1
+        return state
       }
     },
-  },
 
-  removeProductFromCart(state, action) {
-    const id = action.payload
-    const existingItem = state.items.find((item) => item.id === id)
-
-    state.totalQuantity--
-    if (existingItem.quantity === 1) {
-      state.items = state.items.filter((item) => item.id !== id)
-    } else {
-      existingItem.quantity--
-    }
+    removeProductFromCart(state, action) {
+      const productId = action.payload
+      const existedProduct = state.cart.find(
+        (product) => product.id === productId
+      )
+      if (existedProduct.quantity === 1) {
+        return {
+          ...state,
+          cart: state.cart.filter((product) => product.id !== productId),
+          totalQuantity: state.totalQuantity - 1,
+        }
+      } else {
+        existedProduct.quantity -= 1
+        return state
+      }
+    },
+    clearCart(state) {
+      return {
+        ...state,
+        cart: [],
+        totalQuantity: 0,
+      }
+    },
   },
 })
 
